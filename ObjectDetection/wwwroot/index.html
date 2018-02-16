@@ -1,0 +1,87 @@
+﻿<!doctype html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8">
+    <title>Image processing</title>
+    <base href="/">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="directives/loading-spinner.css" rel="stylesheet" />
+    <link href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css" rel="stylesheet" />
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="Content/main.css">
+</head>
+<body>
+    
+    <div class="container" ng-controller="ModalCtrl as $ctrl">
+        <script type="text/ng-template" id="myModalContent.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">Image</h3>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <div ng-repeat="image in images">
+                    <img src="/Content/UploadFiles/{{image}}"/>
+                </div>
+                <div ng-repeat="item in $ctrl.items">
+                    <p>{{item.description}} = {{item.score}}</p>
+                </div>
+                
+                <!--<img ng-src="{{$ctrl.items[0]}}" />-->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+                <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+            </div>
+        </script>
+        <script type="text/ng-template" id="stackedModal.html">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title-{{name}}">The {{name}} modal!</h3>
+            </div>
+            <div class="modal-body" id="modal-body-{{name}}">
+                Having multiple modals open at once is probably bad UX but it's technically possible.
+            </div>
+        </script>
+
+        <nav class="nav" role="navigation">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Image Upload</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+
+            </div>
+
+        </nav>
+
+        <div ng-view>
+        </div>
+        <footer>
+            <p>&copy; Image Upload</p>
+        </footer>
+    </div>
+
+    <!-- Angular and libraries references -->
+    <script src="node_modules/angular/angular.min.js"></script>
+    <script src="node_modules/angular-route/angular-route.min.js"></script>
+    <script src="node_modules/angular-animate/angular-animate.min.js"></script>
+    <script src="App/directives/loading-spinner.js"></script>
+    <script src="node_modules/ng-file-upload/dist/FileAPI.js"></script>
+    <script src="node_modules/ng-file-upload/dist/ng-file-upload-all.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+   
+    <!-- Spa references -->
+
+    <script src="App/app.js"></script>
+    <script src="App/home/home.js"></script>
+    <script src="App/services/fileService.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,71 @@
+﻿<div ng-controller="HomeCtrl as vm">
+    
+    <div class="row">
+        <div class="col-md-12">
+            <h3>{{vm.title}}</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-8">
+            <loading-spinner active="vm.spinner.active">
+                <ul class="list-group">
+                    <li class="list-group-item list-group-item-info">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-8 col-xs-8">Name</div>
+                            <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">Size (kb)</div>
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">Created on</div>
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">Modified on</div>
+                            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-2"></div>
+                        </div>
+                    </li>
+                    <li class="list-group-item" ng-show="vm.photos.length === 0" ng-mouseenter="vm.setPreviewPhoto()">no photos</li>
+                    <li ng-repeat="photo in vm.photos" class="list-group-item" ng-mouseenter="vm.setPreviewPhoto(photo)" ng-mouseleave="vm.setPreviewPhoto()">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-4 col-sm-8 col-xs-8 wraptext">{{photo.Name}}</div>
+                            <div class="col-lg-1 col-md-1 hidden-sm hidden-xs">{{photo.Size}}</div>
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">{{photo.Created | date: short}}</div>
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">{{photo.Modified | date: short}}</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                                <button type="button" class="btn btn-default btn-vm" ng-click="$ctrl.open('lg', photo.Name)">
+                                    <span class="glyphicon glyphicon-picture"></span>
+                                </button>
+                                <!--<button type="button" class="btn btn-default btn-primary" ng-click="vm.process(photo)">
+                                    <span class="glyphicon glyphicon-screenshot"></span>
+                                </button>-->
+                                <button type="button" class="btn btn-default btn-danger" ng-click="vm.remove(photo)">
+                                    <span class="glyphicon glyphicon-remove"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </loading-spinner>
+
+
+            <form name="newPhotosForm" role="form" enctype="multipart/form-data">
+                <div class="form-group" ng-hide="hasFiles">
+                    <label for="newPhotos">Select and upload new photos</label>
+                    <input type="file" id="newPhotos" class="uploadFile" accept="image/*" ngf-select ng-model="files" ngf-multiple="true">
+                </div>
+
+                <div class="form-group">
+                    <ul class="list-unstyled" ng-model="vm.files">
+                        <li>
+                            <strong>Files:</strong>
+                        </li>
+                        <li ng-repeat="photo in files"> {{photo.name}}</li>
+                    </ul>
+                    <input class="btn btn-primary" type="button" ng-click="vm.uploadFiles(files)" value="upload">
+                    <input class="btn btn-warning" type="reset" value="cancel" />
+                </div>
+            </form>
+
+        </div>
+        <div class="col-md-4 hidden-sm hidden-xs" style="height: 250px; margin-bottom: 5px; width: 250px;">
+            <img ng-src="content/uploadfiles/{{vm.previewPhoto.Name}}" style="max-height: 250px" ng-show="vm.previewPhoto" class="img-responsive" alt="vm.previewPhoto.name" />
+        </div>
+    </div>
+
+
+</div>
